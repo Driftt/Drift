@@ -1,0 +1,78 @@
+{
+  "resources": {
+    "head": [
+      {
+        "type": "script",
+        "src": "app.js"
+      }
+    ]
+  },
+  "options": {
+    "properties": {
+      "account": {
+        "title": "Login",
+        "type": "object",
+        "format": "account",
+        "services": ["drift"],
+        "showIf": {
+          "authChoice": "login"
+        },
+        "order": 10
+      },
+
+      "email": {
+        "title": "Email",
+        "description": "What email address would you like to use with your Drift account",
+        "type": "string",
+        "order": 15
+      },
+
+      "orgName": {
+        "title": "Organization Name",
+        "description": "This is the name which will be shown to visitors. e.g. “Drift” or “Google”",
+        "type": "string",
+        "order": 20
+      },
+      "logo": {
+        "title": "Logo",
+        "description": "Upload a logo to show it in the chat, or leave blank.",
+        "type": "string",
+        "format": "image",
+        "order": 25
+      },
+
+      "primaryColor": {
+        "title": "Primary Color",
+        "type": "string",
+        "format": "color",
+        "default": "#2D88F3",
+        "order": 30
+      },
+      "secondaryColor": {
+        "title": "Secondary Color",
+        "type": "string",
+        "format": "color",
+        "default": "#FFFFFF",
+        "order": 40
+      },
+
+      "nextStep": {
+        "helpvalue": "After saving, <a href='https://drift.com' target=_blank>visit Drift</a> to recieve your messages!",
+        "type": "help"
+      }
+    }
+  },
+  "hooks": [
+    {
+      "endpoint": "http://provisioner.eager.io/drift/v1/hook",
+      "events": ["preview", "new-install", "update-install"],
+      "block": true,
+      "authenticate": ["account"],
+      "failure": {
+        "action": "notify",
+        "message": "There was an error communicating with Drift."
+      }
+    }
+  ]
+
+}
