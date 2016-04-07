@@ -56,16 +56,23 @@
         "order": 40
       },
 
+      "embedId": {
+        "title": "Embed Id",
+        "type": "string",
+        "order": 50,
+      },
+
       "nextStep": {
         "helpvalue": "After saving, <a href='https://drift.com' target=_blank>visit Drift</a> to recieve your messages!",
-        "type": "help"
+        "type": "help",
+        "order": 60
       }
     }
   },
   "hooks": [
     {
       "endpoint": "http://provisioner.eager.io/drift/v1/hook",
-      "events": ["preview", "new-install", "update-install"],
+      "events": ["new-install", "update-install"],
       "block": true,
       "authenticate": ["account"],
       "failure": {
