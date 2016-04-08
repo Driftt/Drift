@@ -7,6 +7,18 @@
       }
     ]
   },
+  "preview": {
+    "handlers": [
+      {
+        "options": ["color", "orgName"],
+        "execute": "INSTALL_SCOPE.setOptions(INSTALL_OPTIONS)"
+      },
+      {
+        "options": ["email"],
+        "reload": false
+      }
+    ]
+  },
   "options": {
     "properties": {
       "account": {
@@ -31,40 +43,29 @@
         "title": "Organization Name",
         "description": "This is the name which will be shown to visitors. e.g. “Drift” or “Google”",
         "type": "string",
+        "default": "Your Company",
         "order": 20
       },
-      "logo": {
-        "title": "Logo",
-        "description": "Upload a logo to show it in the chat, or leave blank.",
-        "type": "string",
-        "format": "image",
-        "order": 25
-      },
 
-      "primaryColor": {
-        "title": "Primary Color",
+      "color": {
+        "title": "Color",
         "type": "string",
         "format": "color",
         "default": "#2D88F3",
         "order": 30
       },
-      "secondaryColor": {
-        "title": "Secondary Color",
-        "type": "string",
-        "format": "color",
-        "default": "#FFFFFF",
-        "order": 40
-      },
 
       "embedId": {
         "title": "Embed Id",
         "type": "string",
-        "order": 50
+        "order": 50,
+        "showIf": "embedId"
       },
 
       "nextStep": {
-        "helpvalue": "After saving, <a href='https://drift.com' target=_blank>visit Drift</a> to recieve your messages!",
+        "helpvalue": "<a href='https://drift.com' target=_blank>Visit Drift</a> to receive your messages!",
         "type": "help",
+        "showIf": "embedId",
         "order": 60
       }
     }
