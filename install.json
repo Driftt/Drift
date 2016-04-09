@@ -34,14 +34,14 @@
 
       "email": {
         "title": "Email",
-        "description": "What email address would you like to use with your Drift account",
+        "description": "What email address would you like to use with your Drift account?",
         "type": "string",
         "order": 15
       },
 
       "orgName": {
         "title": "Organization Name",
-        "description": "This is the name which will be shown to visitors. e.g. “Drift” or “Google”",
+        "description": "This is the name which will be shown to visitors. e.g. “Drift” or “Google”.",
         "type": "string",
         "default": "Your Company",
         "order": 20
@@ -51,19 +51,19 @@
         "title": "Color",
         "type": "string",
         "format": "color",
-        "default": "#2D88F3",
+        "default": "#2d88f3",
         "order": 30
       },
 
       "embedId": {
-        "title": "Embed Id",
+        "title": "Embed ID",
         "type": "string",
         "order": 50,
         "showIf": "embedId"
       },
 
       "nextStep": {
-        "helpvalue": "<a href='https://drift.com' target=_blank>Visit Drift</a> to receive your messages!",
+        "helpvalue": "<a href=\"https://drift.com\" target=\"_blank\">Visit Drift</a> to receive your messages!",
         "type": "help",
         "showIf": "embedId",
         "order": 60
@@ -82,5 +82,4 @@
       }
     }
   ]
-
 }
