@@ -55,13 +55,6 @@
         "order": 30
       },
 
-      "embedId": {
-        "title": "Embed ID",
-        "type": "string",
-        "order": 50,
-        "showIf": "embedId"
-      },
-
       "nextStep": {
         "helpvalue": "<a href=\"https://drift.com\" target=\"_blank\">Visit Drift</a> to receive your messages!",
         "type": "help",
