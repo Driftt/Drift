@@ -73,7 +73,7 @@
   "hooks": [
     {
       "endpoint": "http://provisioner.eager.io/drift/v1/hook",
-      "events": ["new-install", "update-install", "option-change:embedId", "preview"],
+      "events": ["before-new-install", "before-update-install", "option-change:embedId", "preview"],
       "block": true,
       "authenticate": ["account"],
       "failure": {
