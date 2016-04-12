@@ -16,7 +16,7 @@
     var config = null;
     var loadConfiguration = function(cb){
       var xhr = new XMLHttpRequest;
-      xhr.open('GET', "https://customer.api.drift.com/embeds/" + options.embedId, true);
+      xhr.open('GET', "https://customer.dev.api.drift.com/embeds/" + options.embedId, true);
       xhr.onload = function(){
         cb(JSON.parse(xhr.response).configuration);
       };
