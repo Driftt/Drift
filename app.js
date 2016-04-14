@@ -3,8 +3,6 @@
   var options = INSTALL_OPTIONS;
   var isPreview = INSTALL_ID == "preview";
 
-  options.embedId = options.embedId;
-
   if (isPreview && !options.embedId)
     options.embedId = "f6r6234aekhz";
 
