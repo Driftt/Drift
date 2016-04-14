@@ -53,13 +53,6 @@
         "format": "color",
         "default": "#2d88f3",
         "order": 30
-      },
-
-      "nextStep": {
-        "helpvalue": "<a href=\"https://drift.com\" target=\"_blank\">Visit Drift</a> to receive your messages!",
-        "type": "help",
-        "showIf": "embedId",
-        "order": 60
       }
     }
   },
