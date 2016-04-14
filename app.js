@@ -38,7 +38,6 @@
       config.theme.backgroundColor = options.color.replace(/^#/, '');
 
       writeConfig()
-      console.log(options.logo);
     }
 
     loadConfiguration(function(conf){
