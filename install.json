@@ -21,6 +21,23 @@
   },
   "options": {
     "properties": {
+      "authChoice": {
+        "title": "Drift Account",
+        "description": "Do you already have a Drift account? If not, we can register one for you now.",
+        "type": "string",
+        "format": "radios",
+        "enum": [
+          "register",
+          "login"
+        ],
+        "enumNames": {
+          "register": "I don’t have an account. Register a Drift account for me now.",
+          "login": "I have a Drift account, I’d like to login."
+        },
+        "default": "register",
+        "order": 0
+      },
+
       "account": {
         "title": "Login",
         "type": "object",
@@ -36,6 +53,9 @@
         "title": "Email",
         "description": "What email address would you like to use with your Drift account?",
         "type": "string",
+        "showIf": {
+          "authChoice": "register"
+        },
         "order": 15
       },
 
