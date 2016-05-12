@@ -32,7 +32,7 @@
         ],
         "enumNames": {
           "register": "I don’t have an account. Register a Drift account for me.",
-          "login": "I have a Drift account, I’d like to login."
+          "login": "I have a Drift account. I’d like to login."
         },
         "default": "register",
         "order": 0
