@@ -10,53 +10,23 @@
   "preview": {
     "handlers": [
       {
-        "options": ["color", "orgName"],
-        "execute": "INSTALL_SCOPE.setOptions(INSTALL_OPTIONS)"
+        "options": ["account"],
+        "execute": "INSTALL_SCOPE.updateConfig()"
       },
       {
-        "options": ["email"],
-        "reload": false
+        "options": ["*"],
+        "execute": "INSTALL_SCOPE.setOptions(INSTALL_OPTIONS)"
       }
     ]
   },
   "options": {
     "properties": {
-      "authChoice": {
-        "title": "Drift Account",
-        "description": "Do you already have a Drift account? If not, we can register one for you now.",
-        "type": "string",
-        "format": "radios",
-        "enum": [
-          "register",
-          "login"
-        ],
-        "enumNames": {
-          "register": "I don’t have an account. Register a Drift account for me.",
-          "login": "I have a Drift account. I’d like to login."
-        },
-        "default": "register",
-        "order": 0
-      },
-
       "account": {
-        "title": "Login",
+        "title": "Login or Register",
         "type": "object",
         "format": "account",
-        "services": ["drift"],
-        "showIf": {
-          "authChoice": "login"
-        },
+        "services": ["drift-qa"],
         "order": 10
-      },
-
-      "email": {
-        "title": "Email",
-        "description": "What email address would you like to use with your Drift account?",
-        "type": "string",
-        "showIf": {
-          "authChoice": "register"
-        },
-        "order": 15
       },
 
       "orgName": {
@@ -73,12 +43,29 @@
         "format": "color",
         "default": "#2d88f3",
         "order": 30
+      },
+
+      "welcomeMessage": {
+        "title": "Welcome Message",
+        "description": "What message would you like to greet new visitors with?",
+        "type": "string",
+        "format": "textarea",
+        "default": "Thank you for visiting! How can I help?",
+        "order": 40
+      },
+
+      "autoOpen": {
+        "title": "Automatically Open Chat",
+        "description": "Show the chat box to every visitor automatically",
+        "type": "boolean",
+        "default": false,
+        "order": 50
       }
     }
   },
   "hooks": [
     {
-      "endpoint": "http://provisioner.eager.io/drift/v1/hook",
+      "endpoint": "http://provisioner.cloudflareapps.com/drift/v1/hook",
       "events": ["before-new-install", "before-update-install", "option-change:account", "preview"],
       "block": true,
       "authenticate": ["account"],

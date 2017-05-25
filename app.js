@@ -11,7 +11,7 @@
   }
 
   if (isPreview){
-    var config = null;
+    var config = {};
     var loadConfiguration = function(cb){
       var xhr = new XMLHttpRequest;
       xhr.open('GET', "https://customer.api.drift.com/embeds/" + options.embedId, true);
@@ -25,51 +25,59 @@
     }
 
     var writeConfig = function(){
-      if (config && window.driftt && window.driftt.__overrideEmbedConfiguration__)
-        driftt.__overrideEmbedConfiguration__(config);
+      if (config && window.drift && window.drift.config){
+        drift.config(config);
+
+        if (options.autoOpen)
+          drift.api.showWelcomeMessage()
+      }
     }
 
     INSTALL_SCOPE.setOptions = function(opts){
       options = opts;
 
-      config.organizationName = options.orgName;
-      config.theme.backgroundColor = options.color.replace(/^#/, '');
+      config.backgroundColor = options.color.replace(/^#/, '');
+      config.messages = config.messages || {};
+      config.messages.welcomeMessage = options.welcomeMessage;
+
+      config.autoAssignee = config.autoAssignee || {};
+      config.autoAssignee.name = options.orgName;
+
+      config.enableWelcomeMessage = options.autoOpen;
 
       writeConfig()
     }
 
-    loadConfiguration(function(conf){
-      config = conf;
-    });
+    INSTALL_SCOPE.updateConfig = function(){
+      loadConfiguration(function(conf){
+        config = conf;
+      });
+    }
+
+    INSTALL_SCOPE.updateConfig();
   }
 
-  (function(t) {
-      function e(r) {
-          if (o[r]) return o[r].exports;
-          var n = o[r] = {
-              exports: {},
-              id: r,
-              loaded: !1
-          };
-          return t[r].call(n.exports, n, n.exports, e), n.loaded = !0, n.exports
-      }
-      var o = {};
-      return e.m = t, e.c = o, e.p = "", e(0)
-  })([function(t, e) {
-      ! function() {
-          var t;
-          return t = window.driftt = window.driftt || [], t.init ? void 0 : t.invoked ? void(window.console && console.error && console.error("Driftt snippet included twice.")) : (t.invoked = !0, t.methods = ["identify", "track", "reset", "debug", "show", "ping", "page", "hide", "off", "on"], t.factory = function(e) {
-              return function() {
-                  var o;
-                  return o = Array.prototype.slice.call(arguments), o.unshift(e), t.push(o), t
-              }
-          }, t.methods.forEach(function(e) {
-              t[e] = t.factory(e)
-          }), t.load = function() {
-              var t, e, o, r;
-              t = 3e5, r = Math.ceil(new Date / t) * t, o = document.createElement("script"), o.type = "text/javascript", o.async = !0, o.crossorigin = "anonymous", o.src = "https://js.driftt.com/include/" + r + "/" + options.embedId + ".js", e = document.getElementsByTagName("script")[0], e.parentNode.insertBefore(o, e)
-          }, t.SNIPPET_VERSION = "0.1.0", t.load())
-      }()
-  }]);
-
+	!function() {
+		var t;
+		if (t = window.driftt = window.drift = window.driftt || [], !t.init) return t.invoked ? void (window.console && console.error && console.error("Drift snippet included twice.")) : (t.invoked = !0, 
+		t.methods = [ "identify", "config", "track", "reset", "debug", "show", "ping", "page", "hide", "off", "on" ], 
+		t.factory = function(e) {
+			return function() {
+				var n;
+				return n = Array.prototype.slice.call(arguments), n.unshift(e), t.push(n), t;
+			};
+		}, t.methods.forEach(function(e) {
+			t[e] = t.factory(e);
+		}), t.load = function(t) {
+			var e, n, o, i;
+			e = 3e5, i = Math.ceil(new Date() / e) * e, o = document.createElement("script"), 
+			o.type = "text/javascript", o.async = !0, o.crossorigin = "anonymous", o.src = "https://js.driftt.com/include/" + i + "/" + t + ".js", 
+			n = document.getElementsByTagName("script")[0], n.parentNode.insertBefore(o, n);
+		});
+	}();
+	drift.SNIPPET_VERSION = '0.3.1';
+  drift.on('ready', function(){
+    INSTALL_SCOPE.setOptions(options)
+  });
+	drift.load(options.embedId);
 })();
