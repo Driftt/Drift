@@ -25,7 +25,7 @@
         "title": "Login or Register",
         "type": "object",
         "format": "account",
-        "services": ["drift-qa"],
+        "services": ["drift-chat"],
         "order": 10
       },
 
@@ -65,7 +65,7 @@
   },
   "hooks": [
     {
-      "endpoint": "http://provisioner.cloudflareapps.com/drift/v1/hook",
+      "endpoint": "https://requestb.in/16zp6ga1",
       "events": ["before-new-install", "before-update-install", "option-change:account", "preview"],
       "block": true,
       "authenticate": ["account"],
