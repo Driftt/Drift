@@ -37,12 +37,28 @@
         "order": 20
       },
 
-      "color": {
-        "title": "Color",
+      "activeColor": {
+        "title": "Link & Button Color",
         "type": "string",
         "format": "color",
         "default": "#2d88f3",
         "order": 30
+      },
+
+      "backgroundColor": {
+        "title": "Background Color",
+        "type": "string",
+        "format": "color",
+        "default": "#2d88f3",
+        "order": 40
+      },
+
+      "foregroundColor": {
+        "title": "Foreground Color",
+        "type": "string",
+        "format": "color",
+        "default": "#ffffff",
+        "order": 50
       },
 
       "welcomeMessage": {
@@ -51,7 +67,16 @@
         "type": "string",
         "format": "textarea",
         "default": "Thank you for visiting! How can I help?",
-        "order": 40
+        "order": 60
+      },
+
+      "awayMessage": {
+        "title": "Away Message",
+        "description": "What message would you like to show visitors while you are away?",
+        "type": "string",
+        "format": "textarea",
+        "default": "We’re not currently online right now but if you leave a message, we’ll get back to you as soon as possible!",
+        "order": 70
       },
 
       "autoOpen": {
@@ -59,7 +84,7 @@
         "description": "Show the chat box to every visitor automatically",
         "type": "boolean",
         "default": false,
-        "order": 50
+        "order": 80
       }
     }
   },

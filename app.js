@@ -36,7 +36,10 @@
     INSTALL_SCOPE.setOptions = function(opts){
       options = opts;
 
-      config.backgroundColor = options.color.replace(/^#/, '');
+      config.backgroundColor = options.backgroundColor.replace(/^#/, '');
+      config.foregroundColor = options.foregroundColor.replace(/^#/, '');
+      config.activeColor = options.activeColor.replace(/^#/, '');
+      
       config.messages = config.messages || {};
       config.messages.welcomeMessage = options.welcomeMessage;
 
@@ -77,7 +80,7 @@
 	}();
 	drift.SNIPPET_VERSION = '0.3.1';
   drift.on('ready', function(){
-    INSTALL_SCOPE.setOptions(options)
+    INSTALL_SCOPE.setOptions && INSTALL_SCOPE.setOptions(options)
   });
 	drift.load(options.embedId);
 })();
