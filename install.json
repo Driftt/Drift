@@ -65,8 +65,8 @@
   },
   "hooks": [
     {
-      "endpoint": "https://requestb.in/16zp6ga1",
-      "events": ["before-new-install", "before-update-install", "option-change:account", "preview"],
+      "endpoint": "https://customer.api.drift.com/third-party/cloudflareapps/hooks",
+      "events": ["new-install", "update-install", "option-change", "preview"],
       "block": true,
       "authenticate": ["account"],
       "failure": {
