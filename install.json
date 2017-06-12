@@ -91,11 +91,11 @@
   "hooks": [
     {
       "endpoint": "https://customer.api.drift.com/third-party/cloudflareapps/hooks",
-      "events": ["new-install", "update-install", "option-change", "preview"],
+      "events": ["new-install", "update-install", "preview"],
       "block": true,
       "authenticate": ["account"],
       "failure": {
-        "action": "notify",
+        "action": "ignore",
         "message": "There was an error communicating with Drift."
       }
     }
