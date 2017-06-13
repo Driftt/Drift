@@ -94,7 +94,7 @@
         "action": "reset-schema"
       },
       {
-        "endpoint": "https://b7632486.ngrok.io/third-party/cloudflareapps/hooks",
+        "endpoint": "https://customer.api.drift.com/third-party/cloudflareapps/hooks",
         "events": ["account-logout", "oauth-login", "new-install", "update-install"],
         "block": true,
         "authenticate": ["account"],
