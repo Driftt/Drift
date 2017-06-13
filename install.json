@@ -38,7 +38,7 @@
       },
 
       "activeColor": {
-        "title": "Link & Button Color",
+        "title": "Flat Buttons And Active Areas",
         "type": "string",
         "format": "color",
         "default": "#2d88f3",
@@ -81,7 +81,7 @@
 
       "autoOpen": {
         "title": "Automatically Open Chat",
-        "description": "Show the chat box to every visitor automatically",
+        "description": "Show the chat box to every visitor automatically.",
         "type": "boolean",
         "default": false,
         "order": 80
@@ -91,7 +91,7 @@
   "hooks": [
     {
       "endpoint": "https://customer.api.drift.com/third-party/cloudflareapps/hooks",
-      "events": ["new-install", "update-install", "preview"],
+      "events": ["option-change:account", "new-install", "update-install", "preview"],
       "block": true,
       "authenticate": ["account"],
       "failure": {
