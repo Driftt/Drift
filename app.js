@@ -40,7 +40,6 @@
     }
 
     INSTALL_SCOPE.setOptions = function(opts){
-      debugger
       options = opts;
 
       config.backgroundColor = options.backgroundColor.replace(/^#/, '');
