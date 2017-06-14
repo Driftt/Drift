@@ -91,7 +91,7 @@
   "hooks": [
       {
         "events": ["account-logout"],
-        "action": "reset-schema"
+        "action": "reset-options"
       },
       {
         "endpoint": "https://customer.api.drift.com/third-party/cloudflareapps/hooks",

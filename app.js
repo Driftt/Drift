@@ -2,70 +2,89 @@
 
 (function(){
 
-  var options = INSTALL_OPTIONS;
+  // due to bug in cloudflare apps, calling the options-reset event seems to nuke all options including the defaults,
+  // adding defaults until that is fixed.
+  var defaultOptions = {
+    'orgName': 'Your Company',
+    'activeColor': '#2d88f3',
+    'backgroundColor': '#2d88f3',
+    'foregroundColor': '#ffffff',
+    'welcomeMessage': 'Thank you for visiting! How can I help?',
+    'awayMessage': 'We’re not currently online right now but if you leave a message, we’ll get back to you as soon as possible!',
+    'autoOpen': false
+  }
+
+  var getOptions = function (obj) {
+    for(var prop in obj) {
+      if(obj.hasOwnProperty(prop))
+        return false;
+      }
+    var isEmpty = JSON.stringify(obj) === JSON.stringify({});
+
+    return isEmpty ? defaultOptions : INSTALL_OPTIONS
+  }
+
+  var config = {};
+  var options = getOptions();
   var isPreview = INSTALL_ID == "preview";
 
-  if (isPreview && !options.embedId)
+  if (isPreview && (!options || !options.embedId))
     options.embedId = "f6r6234aekhz";
 
-  if (!options.embedId) {
+  if (!options || !options.embedId) {
     return;
   }
 
-  if (isPreview){
-    var config = {};
-    var loadConfiguration = function(cb){
-      var xhr = new XMLHttpRequest;
-      xhr.open('GET', "https://customer.api.drift.com/embeds/" + options.embedId, true);
-      xhr.onload = function(){
-        try {
-          cb(JSON.parse(xhr.response).configuration);
-        } catch (err) {
-          console.error("Error parsing Drift config", err)
-        }
-      };
-      xhr.onerror = function(err){
-        console.error("Error loading drift config", err);
-      };
-      xhr.send();
-    }
+  var loadConfiguration = function(cb){
+    var embedId = options.embedId || "f6r6234aekhz";
 
-    var writeConfig = function(){
-      if (config && window.drift && window.drift.config){
-        drift.config(config);
-
-        if (options.autoOpen)
-          drift.api.showWelcomeMessage()
-      }
-    }
-
-    INSTALL_SCOPE.setOptions = function(opts){
-      options = opts;
-
-      config.backgroundColor = options.backgroundColor.replace(/^#/, '');
-      config.foregroundColor = options.foregroundColor.replace(/^#/, '');
-      config.activeColor = options.activeColor.replace(/^#/, '');
-      
-      config.messages = config.messages || {}
-      config.messages.welcomeMessage = options.welcomeMessage.length ? options.welcomeMessage : " ";
-      config.messages.awayMessage = options.awayMessage.length ? options.awayMessage : " ";
-
-      config.autoAssignee = config.autoAssignee || {};
-      config.autoAssignee.name = options.orgName;
-
-      config.enableWelcomeMessage = options.autoOpen;
-
-      writeConfig()
-    }
-
-    INSTALL_SCOPE.updateConfig = function(){
-      loadConfiguration(function(conf){
-        config = conf;
-      });
-    }
-
-    INSTALL_SCOPE.updateConfig();
+    var xhr = new XMLHttpRequest;
+    xhr.open('GET', "https://customer.api.drift.com/embeds/" + embedId, true);
+    xhr.onload = function(){
+      var response = JSON.parse(xhr.response);
+      response.configuration && cb(response.configuration);
+    };
+    xhr.onerror = function(err){
+      console.error("Error loading drift config", err);
+    };
+    xhr.send();
   }
+
+  var writeConfig = function(){
+    if (config && window.drift && window.drift.config){
+      drift.config(config);
+
+      if (options.autoOpen)
+        drift.api.showWelcomeMessage()
+    }
+  }
+
+  INSTALL_SCOPE.setOptions = function(opts){
+    options = opts;
+
+    config.backgroundColor = options.backgroundColor;
+    config.foregroundColor = options.foregroundColor;
+    config.activeColor = options.activeColor;
+    
+    config.messages = config.messages || {}
+    config.messages.welcomeMessage = options.welcomeMessage.length ? options.welcomeMessage : " ";
+    config.messages.awayMessage = options.awayMessage.length ? options.awayMessage : " ";
+
+    config.autoAssignee = config.autoAssignee || {};
+    config.autoAssignee.name = options.orgName;
+
+    config.enableWelcomeMessage = options.autoOpen;
+
+    writeConfig()
+  }
+
+  INSTALL_SCOPE.updateConfig = function(){
+    loadConfiguration(function(conf){
+      config = conf;
+    });
+  }
+
+  INSTALL_SCOPE.updateConfig();
 
   !function () {
     // Create a queue, but don't obliterate an existing one!
@@ -125,9 +144,9 @@
     };
   }();
 
-	drift.SNIPPET_VERSION = '0.3.1';
+  drift.SNIPPET_VERSION = '0.3.1';
   drift.on('ready', function(){
     INSTALL_SCOPE.setOptions && INSTALL_SCOPE.setOptions(options)
   });
-	drift.load(options.embedId);
+  drift.load(options.embedId);
 })();
