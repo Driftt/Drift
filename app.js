@@ -1,9 +1,7 @@
 'use strict';
 
 (function(){
-
-  // due to bug in cloudflare apps, calling the options-reset event seems to nuke all options including the defaults,
-  // adding defaults until that is fixed.
+  
   var defaultOptions = {
     'orgName': 'Your Company',
     'activeColor': '#2d88f3',
@@ -60,15 +58,24 @@
   }
 
   INSTALL_SCOPE.setOptions = function(opts){
+    var ensureHex = function(color) {
+      if (!color) return '#fff'
+
+      var isValid = color[0] === '#'
+      var updatedString = '#' + color
+
+      return isValid ? color : updatedString
+    }
+
     options = opts;
 
-    config.backgroundColor = options.backgroundColor;
-    config.foregroundColor = options.foregroundColor;
-    config.activeColor = options.activeColor;
+    config.backgroundColor = ensureHex(options.backgroundColor);
+    config.foregroundColor = ensureHex(options.foregroundColor);
+    config.activeColor = ensureHex(options.activeColor);
     
     config.messages = config.messages || {}
-    config.messages.welcomeMessage = options.welcomeMessage.length ? options.welcomeMessage : " ";
-    config.messages.awayMessage = options.awayMessage.length ? options.awayMessage : " ";
+    config.messages.welcomeMessage = (!!options.welcomeMessage && options.welcomeMessage.length) ? options.welcomeMessage : " ";
+    config.messages.awayMessage = (!!options.awayMessage && options.awayMessage.length) ? options.awayMessage : " ";
 
     config.autoAssignee = config.autoAssignee || {};
     config.autoAssignee.name = options.orgName;
